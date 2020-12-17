@@ -13,9 +13,13 @@
         </label>
     </div>
     <div>
-        <label>categories:
-            <input [(ngModel)]="categories" placeholder="categories" />
+        <label>add categorie:
+            <input [(ngModel)]="categorieName" placeholder="categorie" />
+            <button (click)="addCategorie()">add</button>
         </label>
-    </div>
 
+        <ul>
+            <li *ngFor="let categorie of categories">{{ categorie.name }}</li>
+        </ul>
+    </div>
 </div>

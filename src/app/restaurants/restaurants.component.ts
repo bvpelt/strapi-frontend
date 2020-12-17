@@ -14,10 +14,10 @@ export class RestaurantsComponent implements OnInit {
   constructor(private axioService: AxiosService) { }
 
   ngOnInit(): void {
-      this.axioService.getRestaurants().then(
-        (response) => this.restaurants = response.data,
-        (error) => this.error = error
-      );
-    }
+    this.axioService.getRestaurants().then(
+      (response) => this.restaurants = response.data,
+      (error) => this.error = error
+    );
+  }
 
 }

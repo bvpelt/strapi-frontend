@@ -1,4 +1,5 @@
 export class Restaurant {
+    id: number = null;
     name: string;
     description: string;
     categories: number[];
