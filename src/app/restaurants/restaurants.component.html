@@ -1,7 +1,13 @@
 <div *ngIf="error">
-    {{ error }}
-  </div>
-  
-  <ul>
-    <li *ngFor="let restaurant of restaurants">{{ restaurant.name }}</li>
-  </ul>
+  {{ error }}
+</div>
+
+<ul>
+  <li *ngFor="let restaurant of restaurants">{{ restaurant.name }}
+    <div *ngFor="let categorie of restaurant.categories">
+      <div> 
+        <ul>{{categorie.name}} </ul>
+      </div>
+    </div>
+  </li>
+</ul>

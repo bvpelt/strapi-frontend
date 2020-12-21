@@ -1,8 +1,10 @@
+import { Category } from './category';
+
 export class Restaurant {
     id: number = null;
     name: string;
     description: string;
-    categories: number[];
+    categories: Category[];
 
     constructor(name, description, categories) {
         this.name = name;

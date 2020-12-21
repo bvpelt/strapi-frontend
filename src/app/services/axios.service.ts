@@ -15,6 +15,11 @@ export class AxiosService {
     return response;
   }
 
+  async getCategories() {
+    const response = await axios.get('http://localhost:1337/categories');
+    return response;
+  }
+
   addRestaurant(restaurant: Restaurant): any {
     var id: number = -1;
     var error: string = null;
@@ -32,25 +37,19 @@ export class AxiosService {
         error = error
       });
 
-      return {id, error};
+    return { id, error };
   }
 
-  addCategory(category: Category): any {
+  addCategory(category: Category) {
     var category: Category;
-    var error: string = null;
-    axios.post('http://localhost:1337/categories', {
-      name: category.name, /*'Dolemon Sushi',*/
-    }).then
-    (response => {
-      category = new Category(response.data.id, reponse.data.name);
-      error = null;
-    }),
-    (error => {
-      category = null;
-      error = error
-    });
 
-    return {category, error};
+    axios.post('http://localhost:1337/categories', {
+      "name": category.name, /*'Dolemon Sushi',*/
+    }).then
+    (response => {return response}),
+    (error => {return error});
+
+    return null;
   }
 
 }

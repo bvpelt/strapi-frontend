@@ -12,14 +12,17 @@
             <input [(ngModel)]="description" placeholder="description" />
         </label>
     </div>
-    <div>
-        <label>add categorie:
+    <div>       
+        <p>
+            select existing categorie(s) from
+        </p>
+        <ul>
+            <ul *ngFor="let categorie of categories" (click)="onSelect(categorie)" >{{ categorie.name }} </ul>
+        </ul>
+
+        <label>add new categorie:
             <input [(ngModel)]="categorieName" placeholder="categorie" />
             <button (click)="addCategorie()">add</button>
         </label>
-
-        <ul>
-            <li *ngFor="let categorie of categories">{{ categorie.name }}</li>
-        </ul>
     </div>
 </div>
