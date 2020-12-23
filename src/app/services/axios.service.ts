@@ -7,7 +7,9 @@ import { Restaurant } from '../model/restaurant';
   providedIn: 'root'
 })
 export class AxiosService {
-
+  retval: any;
+  err: any;
+  
   constructor() { }
 
   async getRestaurants() {
@@ -41,16 +43,14 @@ export class AxiosService {
     axios.post('http://localhost:1337/categories', {
       name: category.name, /*'Dolemon Sushi',*/
     }).then
-    (response => {
-      category = new Category(response.data.id, reponse.data.name);
-      error = null;
+    (response => { 
+      console.log("result post addCategorie: " + JSON.stringify(response));
+      return response;           
     }),
     (error => {
-      category = null;
-      error = error
+      console.log("result post addCategorie: " + JSON.stringify(error));
+      return error;
     });
-
-    return {category, error};
   }
 
 }

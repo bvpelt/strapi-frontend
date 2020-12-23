@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { getEnabledCategories } from 'trace_events';
 import { Category } from '../model/category';
 import { Restaurant } from '../model/restaurant';
 import { AxiosService } from '../services/axios.service';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -18,22 +20,18 @@ export class RestaurantComponent implements OnInit {
   response: any;
   message: string;
 
-  constructor(private axioService: AxiosService) { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
+    this.getCategories();
   }
 
   addRestaurant(): void {
     var newRestaurant: Restaurant = new Restaurant(this.name, this.description, this.categories);
-    this.axioService.addRestaurant(newRestaurant);
+    //this.axioService.addRestaurant(newRestaurant);
   }
 
-  addCategorie(): void {
-    var newCategorie: Category = new Category(null, this.categorieName);
-    var result = this.axioService.addCategory(newCategorie);
-    if (result.id) {
-      //this.categories[this.categories.length] = result.id;
-      this.categories.push(new Category(result.id, result.name));
-    }
+  getCategories() {
+    this.httpService.getCategories().subscribe(categories => this.categories = categories);
   }
 }
