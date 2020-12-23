@@ -4,7 +4,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## References
 
-See https://strapi.io/documentation/v3.x/getting-started/angular.html
+See 
+
+strapi https://strapi.io/documentation/v3.x/getting-started/angular.html
+
+richt text editor https://ej2.syncfusion.com/angular/documentation/rich-text-editor/getting-started/ 
 
 ## Development server
 

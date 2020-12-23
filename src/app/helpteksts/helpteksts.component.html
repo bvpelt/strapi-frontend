@@ -1,0 +1,8 @@
+<div>
+    <h2>Helpteksts</h2>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let helptekst of helpteksts$ | async">
+            <b>{{helptekst.helpid}}</b> - {{helptekst.helptekst}}
+        </li>
+    </ul>
+</div>
