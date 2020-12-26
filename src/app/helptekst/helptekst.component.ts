@@ -23,8 +23,10 @@ export class HelptekstComponent implements OnInit {
     // check if helptekst is valid
     if (this.validHelptekst()) {
       this.messageService.add('added valid helptekst: ' + this.helptekst.helpid + ' ' + JSON.stringify(this.helptekst));
-      console.log('adding helptekst:'  + JSON.stringify(this.helptekst));
-      this.helptekstService.addHelpteksts(this.helptekst);
+      console.log('adding helptekst:' + JSON.stringify(this.helptekst));
+      this.helptekstService.addHelptekst(this.helptekst)
+        .subscribe(response => { console.log('Result: ' + JSON.stringify(response)) },
+          error => { console.log('Error ' + JSON.stringify(error)) });
     } else {
       this.error = "Both helpid and helpmessage are required"
       this.messageService.add(this.error);
@@ -34,7 +36,7 @@ export class HelptekstComponent implements OnInit {
   validHelptekst(): boolean {
     var result: boolean = false;
 
-    if (typeof(this.helptekst.helpid) != "undefined") {
+    if (typeof (this.helptekst.helpid) != "undefined") {
       if (this.helptekst.helpid.length > 0) {
         result = true;
       } else {
@@ -43,7 +45,7 @@ export class HelptekstComponent implements OnInit {
     }
 
     if (result == true) {
-      if (typeof(this.helptekst.helptekst) != "undefined") {
+      if (typeof (this.helptekst.helptekst) != "undefined") {
         if (this.helptekst.helptekst.length === 0) {
           result = false;
         }
@@ -52,7 +54,7 @@ export class HelptekstComponent implements OnInit {
       }
     }
 
-    return result; 
+    return result;
   }
 
   clearError(): void {

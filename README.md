@@ -10,6 +10,12 @@ strapi https://strapi.io/documentation/v3.x/getting-started/angular.html
 
 richt text editor https://ej2.syncfusion.com/angular/documentation/rich-text-editor/getting-started/ 
 
+To authenticate user
+
+https://strapi.io/documentation/developer-docs/latest/guides/api-token.html#introduction
+
+http://localhost:1337/admin/auth/register?registrationToken=0a6731050d1253accbf66994dfb556df27d9d62c
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

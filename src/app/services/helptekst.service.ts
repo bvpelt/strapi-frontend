@@ -10,34 +10,57 @@ import { MessageService } from './message.service';
 })
 export class HelptekstService {
 
+  jwtToken: string = null;
   baseUrl: string = 'http://localhost:1337';
-  helpteksts$: Observable<Helptekst[]>;
 
-  constructor(private http: HttpClient, private messageService: MessageService) { }
+  constructor(private http: HttpClient, private messageService: MessageService) {
+    this.login();
+  }
 
   getHelpteksts(): Observable<Helptekst[]> {
     this.messageService.add('helptekstService: getHelpteksts');
     return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts');
   }
 
-  addHelpteksts(helptekst: Helptekst): any {
+  addHelptekst(helptekst: Helptekst): Observable<Helptekst> {
     this.messageService.add('helptekstService: addHelpteksts');
 
-    let httpHeaders = new HttpHeaders();
-    httpHeaders.append('Content-Type', 'application/json');
-    httpHeaders.append("Authorization", "Basic " + btoa("test:strapitest"));
+
+
+    let httpHeaders = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Bearer ' + this.jwtToken);
 
     const httpOptions = {
-      headers: httpHeaders
+      'headers': httpHeaders
     };
-    return this.http.post(this.baseUrl + '/helpteksts', helptekst);
+    console.log('HelptekstService - addHelptekst httpOptions: ' + JSON.stringify(httpOptions));
+    return this.http.post<Helptekst>(this.baseUrl + '/helpteksts', helptekst, httpOptions);
   }
 
   getHelptekst(helptekst: string): Observable<Helptekst> {
-    this.messageService.add('helptekstService: getHelptekst: ' + helptekst);
+    this.messageService.add('HelptekstService: getHelptekst: ' + helptekst);
     return this.getHelpteksts().pipe(
       find((h: any) => h.helpid === helptekst)
     )
+  }
+
+  login() {
+    const user = {
+      'identifier': 'testauthor',
+      'password': 'testauthor'
+    };
+    console.log('HelptekstService - login start');
+
+    this.http.post<any>(this.baseUrl + '/auth/local', user)
+      .subscribe(
+        (response => {
+          console.log('HelptekstService - login reponse: ' + JSON.stringify(response));
+          this.jwtToken = response.jwt
+        }),
+        (error => { console.log('HelptekstService - login reponse: ' + JSON.stringify(error)); }),
+        () => { console.log('HelptekstService - login unknown error'); })
+      ;
   }
 
 }
