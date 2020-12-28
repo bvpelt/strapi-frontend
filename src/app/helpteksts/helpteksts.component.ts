@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Helptekst } from '../model/helptekst.model';
 import { HelptekstService } from '../services/helptekst.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-helpteksts',
@@ -14,14 +15,15 @@ export class HelptekstsComponent implements OnInit {
 
   selectedHelptekst: Helptekst;
 
-  constructor(private helptekstService: HelptekstService) { }
+  constructor(private messageService: MessageService, private helptekstService: HelptekstService) { }
 
   ngOnInit(): void {
-    console.log('helptekstscomponent ngoninit');
+    this.messageService.add('helptekstscomponent ngoninit');
     this.helpteksts$ = this.helptekstService.getHelpteksts();
   }
 
   onSelect(helptekst: Helptekst): void {
+    this.messageService.add('helptekstscomponent selected: ' + JSON.stringify(helptekst));
     this.selectedHelptekst = helptekst;
   }
 }

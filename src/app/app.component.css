@@ -1,8 +1,9 @@
 .nav-pills {
     border-bottom: 1px solid #ddd;
 }
+
 .nav-pills li a {
-    background: #1f4e79;
+    background: #09153d;
     color: #fff;
     display: block;
     line-height: 2em;
@@ -12,9 +13,11 @@
     border: none;
     margin: 30px 2px 0;
 }
+
 ul li a {
     text-decoration: none;
 }
+
 .nav-pills li a.active {
     background: #3482ca;
     border: none;

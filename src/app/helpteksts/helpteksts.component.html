@@ -1,14 +1,17 @@
 <div class="container">
     <h2>Helpteksts</h2>
     <ul class="list-group">
-        <li class="list-group-item" *ngFor="let helptekst of helpteksts$ | async" (click)="onSelect(helptekst)">
+        <li class="list-group-item" [class.selected]="helptekst === selectedHelptekst"
+            *ngFor="let helptekst of helpteksts$ | async" (click)="onSelect(helptekst)">
             <b>{{helptekst.helpid}}</b> - {{helptekst.helptekst}}
         </li>
     </ul>
+    <!--
     <div *ngIf="selectedHelptekst">
         <h3>
             Selected helptekst
         </h3>
         {{selectedHelptekst.id}} {{selectedHelptekst.helpid}} {{selectedHelptekst.helptekst}}
     </div>
+    -->
 </div>

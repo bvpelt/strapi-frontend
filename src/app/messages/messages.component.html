@@ -5,4 +5,7 @@
             {{message}}
         </li>
     </ul>
+    <div *ngIf="messages.length > 0">
+        <button type="button" class="btn btn-primary" (click)="clear()">clear messages</button>
+    </div>
 </div>
