@@ -34,12 +34,13 @@ export class HelptekstComponent implements OnInit {
   addHelptekst(): void {
     // check if helptekst is valid
     if (this.validHelptekst()) {
-
       this.messageService.add('added valid helptekst: ' + this.helptekst.helpid + ' ' + JSON.stringify(this.helptekst));
       console.log('adding helptekst:' + JSON.stringify(this.helptekst));
       this.helptekstService.addHelptekst(this.helptekst)
-        .subscribe(response => { console.log('Result: ' + JSON.stringify(response)) },
-          error => { console.log('Error ' + JSON.stringify(error)) });
+        .subscribe(
+          (response => { this.messageService.add('Result: ' + JSON.stringify(response)) }),
+          (error => { this.messageService.add('Error ' + JSON.stringify(error)) })
+        );
     } else {
       this.error = "Both helpid and helpmessage are required"
       this.messageService.add(this.error);
@@ -47,11 +48,21 @@ export class HelptekstComponent implements OnInit {
   }
 
   updateHelptekst(): void {
-
+    console.log('update helptekst:' + JSON.stringify(this.helptekst));
+    this.helptekstService.updateHelptekst(this.helptekst)
+      .subscribe(
+        (response => { this.messageService.add('Result: ' + JSON.stringify(response)) }),
+        (error => { this.messageService.add('Error ' + JSON.stringify(error)) })
+      );
   }
 
   deleteHelptekst(): void {
-
+    console.log('delete helptekst:' + JSON.stringify(this.helptekst));
+    this.helptekstService.deleteHelptekst(this.helptekst)
+      .subscribe(
+        (response => { this.messageService.add('Result: ' + JSON.stringify(response)) }),
+        (error => { this.messageService.add('Error ' + JSON.stringify(error)) })
+      );
   }
 
   getHelptekst(): void {

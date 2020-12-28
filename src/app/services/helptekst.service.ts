@@ -25,8 +25,6 @@ export class HelptekstService {
   addHelptekst(helptekst: Helptekst): Observable<Helptekst> {
     this.messageService.add('helptekstService: addHelpteksts');
 
-
-
     let httpHeaders = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.jwtToken);
@@ -36,6 +34,35 @@ export class HelptekstService {
     };
     this.messageService.add('HelptekstService - addHelptekst httpOptions: ' + JSON.stringify(httpOptions));
     return this.http.post<Helptekst>(this.baseUrl + '/helpteksts', helptekst, httpOptions);
+  }
+
+
+  updateHelptekst(helptekst: Helptekst): Observable<Helptekst> {
+    this.messageService.add('helptekstService: updateHelptekst');
+
+    let httpHeaders = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Bearer ' + this.jwtToken);
+
+    const httpOptions = {
+      'headers': httpHeaders
+    };
+    this.messageService.add('HelptekstService - updateHelptekst httpOptions: ' + JSON.stringify(httpOptions));
+    return this.http.put<Helptekst>(this.baseUrl + '/helpteksts/' + helptekst.id, helptekst, httpOptions);
+  }
+
+  deleteHelptekst(helptekst: Helptekst): Observable<Helptekst> {
+    this.messageService.add('helptekstService: deleteHelptekst');
+
+    let httpHeaders = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Bearer ' + this.jwtToken);
+
+    const httpOptions = {
+      'headers': httpHeaders
+    };
+    this.messageService.add('HelptekstService - deleteHelptekst httpOptions: ' + JSON.stringify(httpOptions));
+    return this.http.delete<Helptekst>(this.baseUrl + '/helpteksts/' + helptekst.id, httpOptions);
   }
 
   getHelptekst(helptekst: string): Observable<Helptekst> {
