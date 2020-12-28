@@ -10,13 +10,18 @@ import { HelptekstService } from '../services/helptekst.service';
 })
 export class HelptekstsComponent implements OnInit {
 
- helpteksts$: Observable<Helptekst[]>;
+  helpteksts$: Observable<Helptekst[]>;
 
- constructor(private helptekstService: HelptekstService) { }
+  selectedHelptekst: Helptekst;
+
+  constructor(private helptekstService: HelptekstService) { }
 
   ngOnInit(): void {
     console.log('helptekstscomponent ngoninit');
     this.helpteksts$ = this.helptekstService.getHelpteksts();
   }
 
+  onSelect(helptekst: Helptekst): void {
+    this.selectedHelptekst = helptekst;
+  }
 }
