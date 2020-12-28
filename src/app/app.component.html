@@ -1,16 +1,21 @@
 <div class="container-fluid">
   <div class="row">
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/list">Overzicht helpteksten</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/add">Nieuwe helptekst</a>
-      </li>
-    </ul>
+    <nav class="navbar">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a [routerLink]="['/']" class="nav-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/list']" class="nav-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">Overzicht helpteksten</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/add']" class="nav-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">Nieuwe helptekst</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 
   <div class="row">
