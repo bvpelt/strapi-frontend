@@ -4,6 +4,9 @@ import { Helptekst } from '../model/helptekst.model';
 import { HelptekstService } from '../services/helptekst.service';
 import { MessageService } from '../services/message.service';
 
+
+import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-helpteksts',
   templateUrl: './helpteksts.component.html',
@@ -12,8 +15,9 @@ import { MessageService } from '../services/message.service';
 export class HelptekstsComponent implements OnInit {
 
   helpteksts$: Observable<Helptekst[]>;
-
   selectedHelptekst: Helptekst;
+  faTrashAlt = faTrashAlt;
+  faEdit = faEdit;
 
   constructor(private messageService: MessageService, private helptekstService: HelptekstService) { }
 

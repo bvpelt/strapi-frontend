@@ -1,9 +1,9 @@
-.list-group li.selected {
-    background-color: #09153d;
-    color: rgb(255, 255, 255);
-}
-
-.list-group li.selected:hover {
+.list-group-item:hover {
     background-color: #3482ca;
     color: white;
+}
+
+.badge {
+    margin-left: 5px;
+    margin-top: 15px;
 }
