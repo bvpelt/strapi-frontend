@@ -34,7 +34,7 @@ export class HelptekstService {
     const httpOptions = {
       'headers': httpHeaders
     };
-    console.log('HelptekstService - addHelptekst httpOptions: ' + JSON.stringify(httpOptions));
+    this.messageService.add('HelptekstService - addHelptekst httpOptions: ' + JSON.stringify(httpOptions));
     return this.http.post<Helptekst>(this.baseUrl + '/helpteksts', helptekst, httpOptions);
   }
 
@@ -43,6 +43,11 @@ export class HelptekstService {
     return this.getHelpteksts().pipe(
       find((h: any) => h.helpid === helptekst)
     )
+  }
+
+  getHelptekstById(id: number): Observable<Helptekst> {
+    this.messageService.add('HelptekstService: getHelptekstById: ' + id);
+    return this.http.get<Helptekst>(this.baseUrl + '/helpteksts/' + id);
   }
 
   login() {
@@ -55,11 +60,11 @@ export class HelptekstService {
     this.http.post<any>(this.baseUrl + '/auth/local', user)
       .subscribe(
         (response => {
-          console.log('HelptekstService - login reponse: ' + JSON.stringify(response));
+          this.messageService.add('HelptekstService - login reponse: ' + JSON.stringify(response));
           this.jwtToken = response.jwt
         }),
-        (error => { console.log('HelptekstService - login reponse: ' + JSON.stringify(error)); }),
-        () => { console.log('HelptekstService - login unknown error'); })
+        (error => { this.messageService.add('HelptekstService - login reponse: ' + JSON.stringify(error)); }),
+        () => { this.messageService.add('HelptekstService - login unknown error'); })
       ;
   }
 

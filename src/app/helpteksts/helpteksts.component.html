@@ -2,7 +2,8 @@
     <h2>Helpteksts</h2>
     <ul class="list-group">
         <li class="list-group-item" [class.selected]="helptekst === selectedHelptekst"
-            *ngFor="let helptekst of helpteksts$ | async" (click)="onSelect(helptekst)">
+            *ngFor="let helptekst of helpteksts$ | async" (click)="onSelect(helptekst)"
+            routerLink="/detail/{{helptekst.id}}">
             <b>{{helptekst.helpid}}</b> - {{helptekst.helptekst}}
         </li>
     </ul>

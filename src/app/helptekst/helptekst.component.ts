@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { logging } from 'protractor';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { Helptekst } from '../model/helptekst.model';
 import { HelptekstService } from '../services/helptekst.service';
 import { MessageService } from '../services/message.service';
@@ -13,11 +14,21 @@ export class HelptekstComponent implements OnInit {
 
   helptekst: Helptekst = new Helptekst();
   error: string;
+  addButton: boolean = true;
 
   constructor(private helptekstService: HelptekstService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private location: Location) { }
 
   ngOnInit(): void {
+    if (this.route.snapshot.paramMap.get('id')) {
+      this.getHelptekst();
+      this.addButton = false;
+    } else {
+      this.addButton = true;
+    }
+
   }
 
   addHelptekst(): void {
@@ -33,6 +44,22 @@ export class HelptekstComponent implements OnInit {
       this.error = "Both helpid and helpmessage are required"
       this.messageService.add(this.error);
     }
+  }
+
+  updateHelptekst(): void {
+
+  }
+
+  deleteHelptekst(): void {
+
+  }
+
+  getHelptekst(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.helptekstService.getHelptekstById(id)
+      .subscribe(
+        (helptekst => this.helptekst = helptekst),
+        (error => this.error = error));
   }
 
   validHelptekst(): boolean {

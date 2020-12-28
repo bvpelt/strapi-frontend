@@ -16,7 +16,11 @@
                 [(ngModel)]="helptekst.helptekst" class="form-control-lg">
             <small id="helptextHelp" class="form-text text-muted">The helptext</small>
         </div>
-        <button type="submit" class="btn btn-primary" (click)="addHelptekst()">Add</button>
+        <button *ngIf="addButton == true" type="submit" class="btn btn-primary" (click)="addHelptekst()">Add</button>
+        <button *ngIf="addButton == false" type="submit" class="btn btn-primary"
+            (click)="updateHelptekst()">Update</button>
+        <button *ngIf="addButton == false" type="submit" class="btn btn-primary"
+            (click)="deleteHelptekst()">Delete</button>
     </form>
     <div>{{error}}</div>
 </div>

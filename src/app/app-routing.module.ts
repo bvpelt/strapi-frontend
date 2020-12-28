@@ -5,9 +5,10 @@ import { HelptekstsComponent } from './helpteksts/helpteksts.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'list', component: HelptekstsComponent },
-  { path: 'add', component: HelptekstComponent }
+  { path: 'add', component: HelptekstComponent },
+  { path: 'detail/:id', component: HelptekstComponent },
+  { path: '', component: HomeComponent }
 ];
 
 @NgModule({
