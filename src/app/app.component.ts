@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { MessageService } from './services/message.service';
+
+const navClass: string = "nav-link";
+const navActiveClass: string = navClass + " active";
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +12,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'strapi-frontend';
+
+  constructor(private messageService: MessageService) { }
+
+  activateRoute(): void {
+    this.messageService.add("clicked route");
+
+  }
 }

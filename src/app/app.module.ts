@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HelptekstsComponent} from './helpteksts/helpteksts.component';
 import { HelptekstComponent } from './helptekst/helptekst.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import { HelptekstComponent } from './helptekst/helptekst.component';
     MessagesComponent,
     HelptekstsComponent,
     HelptekstComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    AppRoutingModule,
   ],
   providers: [ ],
   bootstrap: [AppComponent]

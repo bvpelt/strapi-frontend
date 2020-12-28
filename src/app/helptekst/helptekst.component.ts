@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { logging } from 'protractor';
 import { Helptekst } from '../model/helptekst.model';
 import { HelptekstService } from '../services/helptekst.service';
 import { MessageService } from '../services/message.service';
@@ -22,6 +23,7 @@ export class HelptekstComponent implements OnInit {
   addHelptekst(): void {
     // check if helptekst is valid
     if (this.validHelptekst()) {
+
       this.messageService.add('added valid helptekst: ' + this.helptekst.helpid + ' ' + JSON.stringify(this.helptekst));
       console.log('adding helptekst:' + JSON.stringify(this.helptekst));
       this.helptekstService.addHelptekst(this.helptekst)

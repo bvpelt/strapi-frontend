@@ -1,5 +1,22 @@
-<div>
-  <app-helpteksts></app-helpteksts>
-  <app-helptekst></app-helptekst>
-  <app-messages></app-messages>
+<div class="container-fluid">
+  <div class="row">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/list">Overzicht helpteksten</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/add">Nieuwe helptekst</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="row">
+    <app-messages></app-messages>
+  </div>
 </div>
