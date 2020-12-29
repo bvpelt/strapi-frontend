@@ -10,6 +10,7 @@ import { HelptekstComponent } from './helptekst/helptekst.component';
 import { HelptekstsComponent } from './helpteksts/helpteksts.component';
 import { HomeComponent } from './home/home.component';
 import { MessagesComponent } from './messages/messages.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MessagesComponent } from './messages/messages.component';
     HelptekstsComponent,
     HelptekstComponent,
     HomeComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -19,22 +19,31 @@
         <div class="list-group-item" [class.selected]="helptekst === selectedHelptekst"
             *ngFor="let helptekst of helpteksts$ | async; let i=index;">
             <div class="row">
-                <div class="col-sm-11" (click)="onSelect(helptekst)">
-                    <a class="list-group-item clearfix" routerLink="/detail/{{helptekst.id}}">
+                <div class="col-sm-11">
+                    <a class="list-group-item clearfix">
                         <b>{{helptekst.helpid}}</b> - {{helptekst.helptekst}}
                     </a>
                 </div>
                 <div class="col-sm-1">
                     <span class="badge badge-primary">
-                        <fa-icon [icon]="faEdit"></fa-icon>
+                        <button type="button" class="btn btn-primary" [routerLink]="['/detail', helptekst.id]">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>
                     </span>
                     <span class="badge badge-primary">
-                        <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        <button type="button" class="btn btn-primary" (click)="delete(helptekst)">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        </button>
                     </span>
                 </div>
             </div>
         </div>
     </div>
+
+    <button type="button" class="btn btn-primary navbut" [routerLink]="['/add']">
+        Add
+    </button>
+    <button type="submit" class="btn btn-primary navbut" (click)="goBack()">Go back</button>
 
     <!--
     <div *ngIf="selectedHelptekst">

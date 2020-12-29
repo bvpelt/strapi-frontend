@@ -100,4 +100,9 @@ export class HelptekstComponent implements OnInit {
   clearError(): void {
     this.error = "";
   }
+
+  goBack(): void {
+    this.location.back();
+  }
+
 }

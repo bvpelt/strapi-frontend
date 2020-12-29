@@ -5,5 +5,9 @@
 
 .badge {
     margin-left: 5px;
-    margin-top: 15px;
+    margin-top: 3px;
+}
+
+.navbut {
+    margin-right: 10px;
 }
