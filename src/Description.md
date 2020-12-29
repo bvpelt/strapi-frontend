@@ -12,3 +12,10 @@ From the compatibility guide angular 11.x uses @fortawesome/angular-fontawesome 
 ```bash
 $ ng add @fortawesome/angular-fontawesome@0.8.1
 ```
+
+# Rich text editor 
+See
+- rich text editor https://ej2.syncfusion.com/angular/documentation/rich-text-editor/getting-started/ 
+- alternatives https://angularscript.com/best-wysiwyg-editors/ 
+- inline html https://blog.fullstacktraining.com/binding-html-with-angular/ 
+

@@ -7,10 +7,13 @@ import { MessageService } from '../services/message.service';
 
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
+import { ToolbarService, LinkService, ImageService, HtmlEditorService } from '@syncfusion/ej2-angular-richtexteditor';
+
 @Component({
   selector: 'app-helptekst',
   templateUrl: './helptekst.component.html',
-  styleUrls: ['./helptekst.component.css']
+  styleUrls: ['./helptekst.component.css'],
+  providers: [ToolbarService, LinkService, ImageService, HtmlEditorService]
 })
 export class HelptekstComponent implements OnInit {
 
@@ -19,6 +22,17 @@ export class HelptekstComponent implements OnInit {
   error: string;
   addButton: boolean = true;
   faQuestionCircle = faQuestionCircle;
+
+  tools: object = {
+    items: ['Undo', 'Redo', '|',
+      'Bold', 'Italic', 'Underline', 'StrikeThrough', '|',
+      'FontName', 'FontSize', 'FontColor', 'BackgroundColor', '|',
+      'SubScript', 'SuperScript', '|',
+      'LowerCase', 'UpperCase', '|',
+      'Formats', 'Alignments', '|', 'OrderedList', 'UnorderedList', '|',
+      'Indent', 'Outdent', '|', 'CreateLink',
+      'Image', '|', 'ClearFormat', 'Print', 'SourceCode', '|', 'FullScreen']
+  };
 
   constructor(private helptekstService: HelptekstService,
     private messageService: MessageService,

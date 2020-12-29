@@ -8,7 +8,7 @@ See
 
 strapi https://strapi.io/documentation/v3.x/getting-started/angular.html
 
-richt text editor https://ej2.syncfusion.com/angular/documentation/rich-text-editor/getting-started/ 
+rich text editor https://ej2.syncfusion.com/angular/documentation/rich-text-editor/getting-started/ 
 
 To authenticate user
 
