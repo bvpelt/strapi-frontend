@@ -5,6 +5,8 @@ import { Helptekst } from '../model/helptekst.model';
 import { HelptekstService } from '../services/helptekst.service';
 import { MessageService } from '../services/message.service';
 
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-helptekst',
   templateUrl: './helptekst.component.html',
@@ -13,8 +15,10 @@ import { MessageService } from '../services/message.service';
 export class HelptekstComponent implements OnInit {
 
   helptekst: Helptekst = new Helptekst();
+  helpmsg: string;
   error: string;
   addButton: boolean = true;
+  faQuestionCircle = faQuestionCircle;
 
   constructor(private helptekstService: HelptekstService,
     private messageService: MessageService,
@@ -34,12 +38,14 @@ export class HelptekstComponent implements OnInit {
   addHelptekst(): void {
     // check if helptekst is valid
     if (this.validHelptekst()) {
-      this.messageService.add('added valid helptekst: ' + this.helptekst.helpid + ' ' + JSON.stringify(this.helptekst));
-      console.log('adding helptekst:' + JSON.stringify(this.helptekst));
+      this.messageService.add('HelptekstComponent - added valid helptekst: ' + this.helptekst.helpid + ' ' + JSON.stringify(this.helptekst));
       this.helptekstService.addHelptekst(this.helptekst)
         .subscribe(
-          (response => { this.messageService.add('Result: ' + JSON.stringify(response)) }),
-          (error => { this.messageService.add('Error ' + JSON.stringify(error)) })
+          (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)) }),
+          (error => {
+            this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+            this.error = error.statusText;
+          })
         );
     } else {
       this.error = "Both helpid and helpmessage are required"
@@ -48,20 +54,26 @@ export class HelptekstComponent implements OnInit {
   }
 
   updateHelptekst(): void {
-    console.log('update helptekst:' + JSON.stringify(this.helptekst));
+    this.messageService.add('HelptekstComponent - update helptekst:' + JSON.stringify(this.helptekst));
     this.helptekstService.updateHelptekst(this.helptekst)
       .subscribe(
-        (response => { this.messageService.add('Result: ' + JSON.stringify(response)) }),
-        (error => { this.messageService.add('Error ' + JSON.stringify(error)) })
+        (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)) }),
+        (error => {
+          this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+          this.error = error.statusText;
+        })
       );
   }
 
   deleteHelptekst(): void {
-    console.log('delete helptekst:' + JSON.stringify(this.helptekst));
+    this.messageService.add('HelptekstComponent - delete helptekst:' + JSON.stringify(this.helptekst));
     this.helptekstService.deleteHelptekst(this.helptekst)
       .subscribe(
-        (response => { this.messageService.add('Result: ' + JSON.stringify(response)) }),
-        (error => { this.messageService.add('Error ' + JSON.stringify(error)) })
+        (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)) }),
+        (error => {
+          this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+          this.error = error.statusText;
+        })
       );
   }
 
@@ -70,7 +82,11 @@ export class HelptekstComponent implements OnInit {
     this.helptekstService.getHelptekstById(id)
       .subscribe(
         (helptekst => this.helptekst = helptekst),
-        (error => this.error = error));
+        (error => {
+          this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+          this.error = error.statusText;
+        })
+      );
   }
 
   validHelptekst(): boolean {
@@ -103,6 +119,23 @@ export class HelptekstComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  showHelp(helpid: number): void {
+    this.messageService.add('HelptekstComponent - showHelp for id: ' + helpid);
+    this.helptekstService.getHelptekstById(helpid)
+      .subscribe(
+        (response => { this.helpmsg = response.helptekst }),
+        (error => {
+          this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+          this.error = error.statusText;
+        }),
+        (() => { })
+      )
+  }
+
+  removeHelpMsg(): void {
+    this.helpmsg = null;
   }
 
 }
