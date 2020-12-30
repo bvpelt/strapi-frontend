@@ -4,6 +4,7 @@ See
 - https://fontawesome.com/ for a description
 - https://fontawesome.com/icons for a list of known icons
 - https://github.com/FortAwesome/angular-fontawesome for description of installation
+- https://openbase.io/ description of opensource software
 
 # My installation
 
