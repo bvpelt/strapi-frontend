@@ -45,7 +45,8 @@ export class HelptekstComponent implements OnInit {
           (error => {
             this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
             this.error = error.statusText;
-          })
+          }),
+          (() => { })
         );
     } else {
       this.error = "Both helpid and helpmessage are required"
@@ -61,7 +62,8 @@ export class HelptekstComponent implements OnInit {
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
-        })
+        }),
+        (() => { })
       );
   }
 
@@ -73,7 +75,8 @@ export class HelptekstComponent implements OnInit {
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
-        })
+        }),
+        (() => { })
       );
   }
 
@@ -85,7 +88,8 @@ export class HelptekstComponent implements OnInit {
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
-        })
+        }),
+        (() => { })
       );
   }
 
@@ -121,11 +125,31 @@ export class HelptekstComponent implements OnInit {
     this.location.back();
   }
 
-  showHelp(helpid: number): void {
-    this.messageService.add('HelptekstComponent - showHelp for id: ' + helpid);
-    this.helptekstService.getHelptekstById(helpid)
+  showHelp(id: number): void {
+    this.clearError();
+    this.messageService.add('HelptekstComponent - showHelp for id: ' + id);
+    this.helptekstService.getHelptekstById(id)
       .subscribe(
         (response => { this.helpmsg = response.helptekst }),
+        (error => {
+          this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+          this.error = error.statusText;
+        }),
+        (() => { })
+      )
+  }
+
+
+  showHelpByHelpId(helpid: string): void {
+    this.clearError();
+    var helpresponse;
+    this.messageService.add('HelptekstComponent - showHelpByHelpId for helpid: ' + helpid);
+    this.helptekstService.getHelptekstByHelpId(helpid)
+      .subscribe(
+        (response => {
+          this.helpmsg = response.helptekst;
+          this.messageService.add('HelptekstComponent - Result ' + JSON.stringify(response));
+        }),
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;

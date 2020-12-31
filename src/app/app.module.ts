@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { MessagesComponent } from './messages/messages.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
+import { QuillModule } from 'ngx-quill'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

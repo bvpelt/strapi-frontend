@@ -15,6 +15,7 @@
             <small id="helpidHelp" class="form-text text-muted">Make sure the helpid is unique</small>
         </div>
 
+        <!--
         <div class="form-group">
             <label for="helptekst">helptekst</label>
             <input class="form-control" type="text" id="helptekst" aria-describedby="helptextHelp"
@@ -22,6 +23,24 @@
                 [(ngModel)]="helptekst.helptekst" class="form-control-lg">
 
             <button type="button" class="btn btn-primary" (click)="showHelp(2)">
+                <fa-icon [icon]="faQuestionCircle"></fa-icon>
+            </button>
+            <small id="helptextHelp" class="form-text text-muted">The helptext</small>
+        </div>
+-->
+        <div class="form-group">
+            <label for="helptekst">helptekst</label>
+            <!--
+            <input class="form-control" type="text" id="helptekst" aria-describedby="helptextHelp"
+                placeholder="Enter the helptekst" name="helptekst" (keypress)="clearError()"
+                [(ngModel)]="helptekst.helptekst" class="form-control-lg">
+-->
+            <quill-editor [(ngModel)]="helptekst.helptekst" name="helptekst" sanitize="true" format="html" theme="snow"
+                placeholder="Insert new tekst" strict="true">
+
+            </quill-editor>
+
+            <button type="button" class="btn btn-primary" (click)="showHelpByHelpId('002')">
                 <fa-icon [icon]="faQuestionCircle"></fa-icon>
             </button>
             <small id="helptextHelp" class="form-text text-muted">The helptext</small>
@@ -36,6 +55,7 @@
             (click)="deleteHelptekst()">Delete</button>
         <button type="submit" class="btn btn-primary" (click)="goBack()">Go back</button>
     </form>
+
     <div class="error" *ngIf="error">
         {{error}}
     </div>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Helptekst } from '../model/helptekst.model';
 import { Observable } from 'rxjs';
@@ -75,6 +75,12 @@ export class HelptekstService {
   getHelptekstById(id: number): Observable<Helptekst> {
     this.messageService.add('HelptekstService: getHelptekstById: ' + id);
     return this.http.get<Helptekst>(this.baseUrl + '/helpteksts/' + id);
+  }
+
+  getHelptekstByHelpId(helpid: string): Observable<Helptekst> {
+    this.messageService.add('HelptekstService: getHelptekstById: ' + helpid);
+    let params = new HttpParams().set('helpid', helpid);
+    return this.http.get<Helptekst>(this.baseUrl + '/helpteksts/', { params: params });
   }
 
   login() {
