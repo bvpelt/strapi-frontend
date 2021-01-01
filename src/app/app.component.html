@@ -14,8 +14,23 @@
           <a [routerLink]="['/add']" class="nav-link" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact:true}">Nieuwe helptekst</a>
         </li>
+
+
       </ul>
     </nav>
+
+    <button type="button" class="btn btn-primary helpbutton" (click)="showHelpByHelpId('003')">
+      <fa-icon [icon]="faQuestionCircle"></fa-icon>
+    </button>
+
+  </div>
+
+  <div *ngIf="helpmsg" class="helpmsg">
+    <button type="button" class="btn btn-primary" (click)="clearHelp()">
+      close
+    </button>
+    <div [innerHTML]="helpmsg">
+    </div>
   </div>
 
   <div class="container-fluid">
@@ -25,4 +40,6 @@
   <div class="container-fluid">
     <app-messages></app-messages>
   </div>
+
+
 </div>

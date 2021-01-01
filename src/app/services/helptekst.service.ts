@@ -17,11 +17,31 @@ export class HelptekstService {
     this.login();
   }
 
+  // Public available services
   getHelpteksts(): Observable<Helptekst[]> {
     this.messageService.add('helptekstService: getHelpteksts');
     return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts');
   }
 
+  getHelptekst(helptekst: string): Observable<Helptekst> {
+    this.messageService.add('HelptekstService: getHelptekst: ' + helptekst);
+    return this.getHelpteksts().pipe(
+      find((h: any) => h.helpid === helptekst)
+    )
+  }
+
+  getHelptekstById(id: number): Observable<Helptekst> {
+    this.messageService.add('HelptekstService: getHelptekstById: ' + id);
+    return this.http.get<Helptekst>(this.baseUrl + '/helpteksts/' + id);
+  }
+
+  getHelptekstByHelpId(helpid: string): Observable<Helptekst[]> {
+    this.messageService.add('HelptekstService: getHelptekstById: ' + helpid);
+    let params = new HttpParams().set('helpid', helpid);
+    return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts/', { params: params });
+  }
+
+  // Authorized services
   addHelptekst(helptekst: Helptekst): Observable<Helptekst> {
     this.messageService.add('helptekstService: addHelpteksts');
 
@@ -35,7 +55,6 @@ export class HelptekstService {
     this.messageService.add('HelptekstService - addHelptekst httpOptions: ' + JSON.stringify(httpOptions));
     return this.http.post<Helptekst>(this.baseUrl + '/helpteksts', helptekst, httpOptions);
   }
-
 
   updateHelptekst(helptekst: Helptekst): Observable<Helptekst> {
     this.messageService.add('helptekstService: updateHelptekst');
@@ -55,7 +74,6 @@ export class HelptekstService {
     this.messageService.add('helptekstService: deleteHelptekst');
 
     let httpHeaders = new HttpHeaders()
-      .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.jwtToken);
 
     const httpOptions = {
@@ -65,30 +83,13 @@ export class HelptekstService {
     return this.http.delete<Helptekst>(this.baseUrl + '/helpteksts/' + helptekst.id, httpOptions);
   }
 
-  getHelptekst(helptekst: string): Observable<Helptekst> {
-    this.messageService.add('HelptekstService: getHelptekst: ' + helptekst);
-    return this.getHelpteksts().pipe(
-      find((h: any) => h.helpid === helptekst)
-    )
-  }
-
-  getHelptekstById(id: number): Observable<Helptekst> {
-    this.messageService.add('HelptekstService: getHelptekstById: ' + id);
-    return this.http.get<Helptekst>(this.baseUrl + '/helpteksts/' + id);
-  }
-
-  getHelptekstByHelpId(helpid: string): Observable<Helptekst> {
-    this.messageService.add('HelptekstService: getHelptekstById: ' + helpid);
-    let params = new HttpParams().set('helpid', helpid);
-    return this.http.get<Helptekst>(this.baseUrl + '/helpteksts/', { params: params });
-  }
-
+  // Provide authentication token
   login() {
     const user = {
       'identifier': 'testauthor',
       'password': 'testauthor'
     };
-    console.log('HelptekstService - login start');
+    this.messageService.add('HelptekstService - login start');
 
     this.http.post<any>(this.baseUrl + '/auth/local', user)
       .subscribe(
@@ -97,8 +98,8 @@ export class HelptekstService {
           this.jwtToken = response.jwt
         }),
         (error => { this.messageService.add('HelptekstService - login reponse: ' + JSON.stringify(error)); }),
-        () => { this.messageService.add('HelptekstService - login unknown error'); })
-      ;
+        (() => { })
+      );
   }
 
 }

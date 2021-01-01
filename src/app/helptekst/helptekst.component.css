@@ -16,3 +16,11 @@ input {
 .error {
     color: red;
 }
+
+.navbut {
+    margin-top: 10px;
+}
+
+.helptekst {
+    margin-bottom: 30px;
+}

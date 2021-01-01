@@ -1,20 +1,6 @@
-<div>
+<div class="helpteksts">
     <h2>Helpteksts</h2>
-    <!--
-    <ul class="list-group">
-        <li class="list-group-item" [class.selected]="helptekst === selectedHelptekst"
-            *ngFor="let helptekst of helpteksts$ | async" (click)="onSelect(helptekst)"
-            routerLink="/detail/{{helptekst.id}}">
-            <b>{{helptekst.helpid}}</b> - {{helptekst.helptekst}}
-            <span class="badge badge-primary">
-                <fa-icon [icon]="faEdit"></fa-icon>
-            </span>
-            <span class="badge badge-primary">
-                <fa-icon [icon]="faTrashAlt"></fa-icon>
-            </span>
-        </li>
-    </ul>
-    -->
+
     <div class="list-group">
         <div class="list-group-item" [class.selected]="helptekst === selectedHelptekst"
             *ngFor="let helptekst of helpteksts$ | async; let i=index;">
@@ -45,12 +31,4 @@
     </button>
     <button type="submit" class="btn btn-primary navbut" (click)="goBack()">Go back</button>
 
-    <!--
-    <div *ngIf="selectedHelptekst">
-        <h3>
-            Selected helptekst
-        </h3>
-        {{selectedHelptekst.id}} {{selectedHelptekst.helpid}} {{selectedHelptekst.helptekst}}
-    </div>
-    -->
 </div>
