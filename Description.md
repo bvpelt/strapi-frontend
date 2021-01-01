@@ -5,6 +5,7 @@ See
 - https://fontawesome.com/icons for a list of known icons
 - https://github.com/FortAwesome/angular-fontawesome for description of installation
 - https://quilljs.com/docs/quickstart/ quill editor
+- https://angularscript.com/best-wysiwyg-editors/ vuhf beste wysiwyg editors for angular
 
 # My installation
 
