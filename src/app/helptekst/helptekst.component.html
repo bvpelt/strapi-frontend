@@ -15,6 +15,7 @@
             <small id="helpidHelp" class="form-text text-muted">Make sure the helpid is unique</small>
         </div>
 
+        <!--
         <div class="form-group">
             <label for="helptekst">helptekst</label>
             <input class="form-control" type="text" id="helptekst" aria-describedby="helptextHelp"
@@ -26,16 +27,16 @@
             </button>
             <small id="helptextHelp" class="form-text text-muted">The helptext</small>
         </div>
-
-        <div>
+    -->
+        <div class="form-group">
             <label for="rteTool">helptekst</label>
 
-            <ejs-richtexteditor id='rteTool' [toolbarSettings]='tools' [(value)]="helptekst.helptekst"
+            <ejs-richtexteditor class="form-control" id='helptekst' aria-describedby="helptextHelp"
+                [toolbarSettings]="tools" name="helptekst" (keypress)="clearError()" [(value)]=" helptekst.helptekst"
                 [(ngModel)]="helptekst.helptekst">
-
             </ejs-richtexteditor>
 
-
+            <small id="helptextHelp" class="form-text text-muted">The helptext</small>
         </div>
 
         <button *ngIf="addButton == true" type="submit" class="btn btn-primary" (click)="addHelptekst()">Add</button>

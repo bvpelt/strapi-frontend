@@ -13,7 +13,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 // Imported Syncfusion RichTextEditorModule from Rich Text Editor package
-import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    RichTextEditorModule
+    RichTextEditorAllModule
   ],
   providers: [],
   bootstrap: [AppComponent]
