@@ -59,7 +59,8 @@ export class HelptekstComponent implements OnInit {
           (error => {
             this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
             this.error = error.statusText;
-          })
+          }),
+          (() => { this.helptekst = new Helptekst(); })
         );
     } else {
       this.error = "Both helpid and helpmessage are required"
@@ -87,7 +88,8 @@ export class HelptekstComponent implements OnInit {
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
-        })
+        }),
+        (() => { })
       );
   }
 
@@ -99,7 +101,8 @@ export class HelptekstComponent implements OnInit {
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
-        })
+        }),
+        (() => { })
       );
   }
 
@@ -148,8 +151,29 @@ export class HelptekstComponent implements OnInit {
       )
   }
 
-  removeHelpMsg(): void {
-    this.helpmsg = null;
+  showHelpByHelpId(helpid: string): void {
+    this.clearError();
+    var helpresponse: Helptekst[];
+    this.messageService.add('HelptekstComponent - showHelpByHelpId for helpid: ' + helpid);
+    this.helptekstService.getHelptekstByHelpId(helpid)
+      .subscribe(
+        (response => {
+          this.messageService.add('HelptekstComponent - Result ' + JSON.stringify(response));
+          helpresponse = response;
+          if (helpresponse.length == 1) { // only one answer expected since helpid is unique identifier!!!
+            this.helpmsg = helpresponse[0].helptekst;
+          }
+        }),
+        (error => {
+          this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+          this.error = error.statusText;
+        }),
+        (() => { })
+      )
   }
 
+  removeHelpMsg(): void {
+    this.messageService.add('HelptekstComponent - removeHelpMsg');
+    this.helpmsg = null;
+  }
 }
