@@ -16,14 +16,13 @@ const navActiveClass: string = navClass + " active";
 export class AppComponent {
   title = 'strapi-frontend';
   faQuestionCircle = faQuestionCircle;
-  error: string;
-  helpmsg: string;
+  error: string = "";
+  helpmsg: string = "";
 
   constructor(private helptekstService: HelptekstService, private messageService: MessageService) { }
 
   activateRoute(): void {
     this.messageService.add("clicked route");
-
   }
 
 

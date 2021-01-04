@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Helptekst } from '../model/helptekst.model';
 import { HelptekstService } from '../services/helptekst.service';
 import { MessageService } from '../services/message.service';
@@ -13,9 +13,9 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./helpteksts.component.css']
 })
 export class HelptekstsComponent implements OnInit {
-  helpteksts$: Observable<Helptekst[]>;
-  selectedHelptekst: Helptekst;
-  error: string;
+  helpteksts$: Observable<Helptekst[]> = of([]);
+  //  selectedHelptekst: Helptekst;
+  error: string = "";
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
 
@@ -49,10 +49,12 @@ export class HelptekstsComponent implements OnInit {
     );
   }
 
+  /*
   onSelect(helptekst: Helptekst): void {
     this.messageService.add('HelptekstsComponent selected: ' + JSON.stringify(helptekst));
     this.selectedHelptekst = helptekst;
   }
+*/
 
   delete(helptekst: Helptekst): void {
     this.messageService.add('helptekstscomponent delete');
