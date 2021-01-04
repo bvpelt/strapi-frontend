@@ -20,6 +20,7 @@ See
 - inline html https://blog.fullstacktraining.com/binding-html-with-angular/ 
 
 # Setup data
+Use the admin userinterface of the strapi backend (http://localhost:1337/admin to fill the database with initial data
 
 ## Define content type Helptekst with the fields
 - helpid - unique string identification
