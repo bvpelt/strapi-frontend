@@ -18,16 +18,14 @@ export class HelptekstService {
   }
 
   // Public available services
-  getHelpteksts(): Observable<Helptekst[]> {
+  getHelpteksts(start: number, limit: number): Observable<Helptekst[]> {
+    let params = new HttpParams()
+      .set('_sort', 'helpid:ASC')
+      .set('_start', start.toString())
+      .set('_limit', limit.toString());
     this.messageService.add('helptekstService: getHelpteksts');
-    return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts');
-  }
 
-  getHelptekst(helptekst: string): Observable<Helptekst> {
-    this.messageService.add('HelptekstService: getHelptekst: ' + helptekst);
-    return this.getHelpteksts().pipe(
-      find((h: any) => h.helpid === helptekst)
-    )
+    return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts', { params: params });
   }
 
   getHelptekstById(id: number): Observable<Helptekst> {

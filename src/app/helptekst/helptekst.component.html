@@ -13,8 +13,6 @@
                 placeholder="Enter unique helpid" name="helpid" (keypress)="clearError()" [(ngModel)]="helptekst.helpid"
                 class="form-control-lg">
 
-
-
             <small id="helpidHelp" class="form-text text-muted">Make sure the helpid is unique</small>
         </div>
 
@@ -28,7 +26,6 @@
             <quill-editor [(ngModel)]="helptekst.helptekst" name="helptekst" sanitize="true" format="html" theme="snow"
                 placeholder="Insert new tekst" strict="true">
             </quill-editor>
-
 
             <small id="helptextHelp" class="form-text text-muted">The helptext</small>
         </div>
