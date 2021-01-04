@@ -14,7 +14,6 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 })
 export class HelptekstsComponent implements OnInit {
   helpteksts$: Observable<Helptekst[]> = of([]);
-  //  selectedHelptekst: Helptekst;
   error: string = "";
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
@@ -48,13 +47,6 @@ export class HelptekstsComponent implements OnInit {
       })
     );
   }
-
-  /*
-  onSelect(helptekst: Helptekst): void {
-    this.messageService.add('HelptekstsComponent selected: ' + JSON.stringify(helptekst));
-    this.selectedHelptekst = helptekst;
-  }
-*/
 
   delete(helptekst: Helptekst): void {
     this.messageService.add('helptekstscomponent delete');

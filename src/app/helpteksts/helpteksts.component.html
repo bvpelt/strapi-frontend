@@ -2,8 +2,7 @@
     <h2>Helpteksts</h2>
 
     <div class="list-group">
-        <div class="list-group-item" 
-            *ngFor="let helptekst of helpteksts$ | async; let i=index;">
+        <div class="list-group-item" *ngFor="let helptekst of helpteksts$ | async; let i=index;">
             <div class="row">
                 <div class="col-sm-11">
                     <a class="list-group-item clearfix">
@@ -36,6 +35,5 @@
         Next
     </button>
     <button type="submit" class="btn btn-primary navbut" (click)="goBack()">Go back</button>
-
 
 </div>
