@@ -10,7 +10,7 @@ import { MessageService } from './message.service';
 })
 export class HelptekstService {
 
-  jwtToken: string = null;
+  jwtToken: string = "";
   baseUrl: string = 'http://localhost:1337';
 
   constructor(private http: HttpClient, private messageService: MessageService) {
@@ -96,7 +96,7 @@ export class HelptekstService {
           this.jwtToken = response.jwt
         }),
         (error => { this.messageService.add('HelptekstService - login reponse: ' + JSON.stringify(error)); }),
-        () => { this.messageService.add('HelptekstService - login unknown error'); })
+        () => {  })
       ;
   }
 

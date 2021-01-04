@@ -17,9 +17,9 @@ import { ToolbarService, LinkService, ImageService, HtmlEditorService } from '@s
 })
 export class HelptekstComponent implements OnInit {
 
-  helptekst: Helptekst = new Helptekst();
-  helpmsg: string;
-  error: string;
+  helptekst: Helptekst = new Helptekst("", "");
+  helpmsg: string = "";
+  error: string = "";
   addButton: boolean = true;
   faQuestionCircle = faQuestionCircle;
 
@@ -46,7 +46,6 @@ export class HelptekstComponent implements OnInit {
     } else {
       this.addButton = true;
     }
-
   }
 
   addHelptekst(): void {
@@ -60,7 +59,7 @@ export class HelptekstComponent implements OnInit {
             this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
             this.error = error.statusText;
           }),
-          (() => { this.helptekst = new Helptekst(); })
+          (() => { this.helptekst = new Helptekst("", ""); })
         );
     } else {
       this.error = "Both helpid and helpmessage are required"
@@ -94,16 +93,20 @@ export class HelptekstComponent implements OnInit {
   }
 
   getHelptekst(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.helptekstService.getHelptekstById(id)
-      .subscribe(
-        (helptekst => this.helptekst = helptekst),
-        (error => {
-          this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
-          this.error = error.statusText;
-        }),
-        (() => { })
-      );
+    const id: string | null = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.helptekstService.getHelptekstById(+id)
+        .subscribe(
+          (helptekst => this.helptekst = helptekst),
+          (error => {
+            this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
+            this.error = error.statusText;
+          }),
+          (() => { })
+        );
+    } else {
+      this.error = 'Parameter expected';
+    }
   }
 
   validHelptekst(): boolean {
@@ -174,6 +177,6 @@ export class HelptekstComponent implements OnInit {
 
   removeHelpMsg(): void {
     this.messageService.add('HelptekstComponent - removeHelpMsg');
-    this.helpmsg = null;
+    this.helpmsg = "";
   }
 }
