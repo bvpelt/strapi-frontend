@@ -54,3 +54,19 @@ Add a role Author with all access on helptekst.
 Add a user testauthor with role Author
 
 ![image](images/strapi02.png)
+
+# Nginix
+See https://phoenixnap.com/kb/how-to-install-nginx-on-ubuntu-20-04 for configuration on linux
+
+Configuration in /etc/nginx/sites-available/test_domain.com
+
+Documentation on configuration https://docs.nginx.com/nginx/admin-guide/monitoring/logging/
+
+Configuring CORS on nginx https://enable-cors.org/server_nginx.html 
+
+# Deployment
+See https://angular.io/guide/build for building aspects
+
+Sess https://stackoverflow.com/questions/8305015/when-using-proxy-pass-can-etc-hosts-be-used-to-resolve-domain-names-instead-of 
+
+

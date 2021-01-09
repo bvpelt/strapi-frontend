@@ -14,6 +14,7 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 })
 export class HelptekstsComponent implements OnInit {
   helpteksts$: Observable<Helptekst[]> = of([]);
+  helpteksts: Helptekst[] = [];
   error: string = "";
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
@@ -33,36 +34,56 @@ export class HelptekstsComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageService.add('HelptekstsComponent ngoninit');
-    this.helpteksts$ = this.helptekstService.getHelpteksts(this.start, this.limit);
-    this.helpteksts$.subscribe(
-      (result => {
-        if (result.length == this.limit) {
-          this.showNext = true;      // there can be more elements
-        } else {
-          this.showNext = false;     // there are defenitly no more elements
-        }
-        this.newPos = result.length; // set the new position       
-        this.curMax = this.newPos;   // set new maximum length
-        this.lastAction = 0;
-      })
-    );
+
+    this.getHelpteksts(this.start, this.limit);
+  }
+
+  getHelpteksts(start: number, limit: number): void {
+    this.helptekstService.getHelpteksts(start, limit)
+      .subscribe(
+        (result => {
+          this.messageService.add('HelptekstsComponent getHelpteksts result: ' + JSON.stringify(result));
+          this.helpteksts = result;
+          if (result.length == this.limit) {
+            this.showNext = true;      // there can be more elements
+          } else {
+            this.showNext = false;     // there are defenitly no more elements
+          }
+          this.newPos = result.length; // set the new position       
+          this.curMax = this.newPos;   // set new maximum length
+          this.lastAction = 0;
+        }),
+        (error => { this.error = error })
+      );
   }
 
   delete(helptekst: Helptekst): void {
-    this.messageService.add('helptekstscomponent delete');
+    this.messageService.add('HelptekstsComponent delete');
     this.helptekstService.deleteHelptekst(helptekst)
       .subscribe(
         (response => {
           this.messageService.add('HelptekstsComponent deleted: ' + JSON.stringify(helptekst));
-        }),
-        (error => { this.error = error }),
-        (() => {
-          this.helpteksts$ = this.helptekstService.getHelpteksts(this.start, this.limit);
           if (this.curMax > 0) {
             this.curMax = this.curMax - 1;
           }
+        }),
+        (error => { this.error = error }),
+        (() => {
+          // Content changed 
+          this.messageService.add('HelptekstsComponent delete - before correction start: ' + this.start + ' curMax: ' + this.curMax);
+          if (this.start > this.curMax) {
+            this.start = this.start - 1;
+          }
+          this.messageService.add('HelptekstsComponent delete - after  correction start: ' + this.start + ' curMax: ' + this.curMax);
+
+          this.getHelpteksts(this.start, this.limit);
         })
       );
+  }
+
+
+  clearError(): void {
+    this.error = "";
   }
 
   goBack(): void {
@@ -73,29 +94,31 @@ export class HelptekstsComponent implements OnInit {
     this.messageService.add('HelptekstsComponent next entry newPos: ' + this.newPos + ' start: ' + this.start + ' curMax: ' + this.curMax);
     this.start = this.newPos;        // increment to newPos
     this.messageService.add('HelptekstsComponent next call  newPos: ' + this.newPos + ' start: ' + this.start + ' curMax: ' + this.curMax);
-    this.helpteksts$ = this.helptekstService.getHelpteksts(this.start, this.limit);
-    this.helpteksts$.subscribe(
-      (result => {
-        if (result.length == this.limit) {
-          this.showNext = true;      // there can be more elements
-        } else {
-          this.showNext = false;     // there are defenitly no more elements
-        }
 
-        this.newPos = this.start + result.length; // set the current position
+    this.helptekstService.getHelpteksts(this.start, this.limit)
+      .subscribe(
+        (result => {
+          this.helpteksts = result;
+          if (result.length == this.limit) {
+            this.showNext = true;      // there can be more elements
+          } else {
+            this.showNext = false;     // there are defenitly no more elements
+          }
 
-        if (this.curMax < this.newPos) {
-          this.curMax = this.newPos;               // set new maximum length
-        }
+          this.newPos = this.start + result.length; // set the current position
 
-        if (this.newPos > this.limit) {
-          this.showPrev = true;
-        } else {
-          this.showPrev = false;
-        }
-        this.lastAction = 0;
-      })
-    );
+          if (this.curMax < this.newPos) {
+            this.curMax = this.newPos;               // set new maximum length
+          }
+
+          if (this.newPos > this.limit) {
+            this.showPrev = true;
+          } else {
+            this.showPrev = false;
+          }
+          this.lastAction = 0;
+        })
+      );
   }
 
   prev(): void {
@@ -115,25 +138,26 @@ export class HelptekstsComponent implements OnInit {
     }
     this.messageService.add('HelptekstsComponent prev call  newPos: ' + this.newPos + ' start: ' + this.start + ' curMax: ' + this.curMax);
 
-    this.helpteksts$ = this.helptekstService.getHelpteksts(this.start, this.limit);
-    this.helpteksts$.subscribe(
-      (result => {
-        if (result.length == this.limit) {
-          this.showNext = true;      // there can be more elements
-        } else {
-          this.showNext = false;     // there are defenitly no more elements
-        }
+    this.helptekstService.getHelpteksts(this.start, this.limit)
+      .subscribe(
+        (result => {
+          this.helpteksts = result;
+          if (result.length == this.limit) {
+            this.showNext = true;      // there can be more elements
+          } else {
+            this.showNext = false;     // there are defenitly no more elements
+          }
 
-        this.newPos = this.start + result.length; // set the current position
+          this.newPos = this.start + result.length; // set the current position
 
-        if (this.newPos > this.limit) {
-          this.showPrev = true;
-        } else {
-          this.showPrev = false;
-        }
-        this.lastAction = 1;
-      })
-    );
+          if (this.newPos > this.limit) {
+            this.showPrev = true;
+          } else {
+            this.showPrev = false;
+          }
+          this.lastAction = 1;
+        })
+      );
 
   }
 }

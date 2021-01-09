@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { find, repeatWhen, mapTo, startWith, filter } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
+import { environment } from './../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +16,8 @@ export class HelptekstService {
   baseUrl: string = 'http://localhost:1337';
 
   constructor(private http: HttpClient, private messageService: MessageService) {
+    this.baseUrl = environment.apiUrl;
+    this.messageService.add('helptekstService: using ' + this.baseUrl + ' as apiurl');
     this.login();
   }
 
@@ -23,7 +27,7 @@ export class HelptekstService {
       .set('_sort', 'helpid:ASC')
       .set('_start', start.toString())
       .set('_limit', limit.toString());
-    this.messageService.add('helptekstService: getHelpteksts');
+    this.messageService.add('helptekstService: getHelpteksts - start: ' + start + ' limit: ' + limit);
 
     return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts', { params: params });
   }
@@ -87,7 +91,20 @@ export class HelptekstService {
       'identifier': 'testauthor',
       'password': 'testauthor'
     };
-    console.log('HelptekstService - login start');
+
+    let httpHeaders = new HttpHeaders()
+      .set('Accept', 'application/json, text/plain, */*')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Content-Type', 'application/json; charset=utf-8')
+      .set('Connection', 'keep-alive')
+      .set('Sec-Fetch-Dest', 'empty')
+      .set('Sec-Fetch-Mode', 'cors')
+      .set('Sec-Fetch-Site', 'same-site')
+
+    const httpOptions = {
+      'headers': httpHeaders,
+    };
+    this.messageService.add('HelptekstService - login start');
 
     this.http.post<any>(this.baseUrl + '/auth/local', user)
       .subscribe(
@@ -95,8 +112,8 @@ export class HelptekstService {
           this.messageService.add('HelptekstService - login reponse: ' + JSON.stringify(response));
           this.jwtToken = response.jwt
         }),
-        (error => { this.messageService.add('HelptekstService - login reponse: ' + JSON.stringify(error)); }),
-        () => {  })
+        (error => { this.messageService.add('HelptekstService - login error reponse: ' + JSON.stringify(error)); }),
+        () => { })
       ;
   }
 

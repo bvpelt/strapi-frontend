@@ -2,7 +2,7 @@
     <h2>Helpteksts</h2>
 
     <div class="list-group">
-        <div class="list-group-item" *ngFor="let helptekst of helpteksts$ | async; let i=index;">
+        <div class="list-group-item" *ngFor="let helptekst of helpteksts; let i=index;">
             <div class="row">
                 <div class="col-sm-11">
                     <a class="list-group-item clearfix">
@@ -23,6 +23,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="error" class="error">
+        {{error}}
     </div>
 
     <button type="button" class="btn btn-primary navbut" [routerLink]="['/add']">
