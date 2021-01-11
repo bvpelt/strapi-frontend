@@ -1,5 +1,5 @@
-import { Base } from "./base.model";
-import { StravaRole } from "./stravarole.model";
+import { Base } from './base.model';
+import { StravaRole } from './stravarole.model';
 
 export class StravaUser extends Base {
     id: number;

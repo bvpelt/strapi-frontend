@@ -32,7 +32,7 @@ export class HelptekstService {
       .set('_limit', limit.toString());
     this.messageService.add('helptekstService: getHelpteksts - start: ' + start + ' limit: ' + limit);
 
-    return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts', { params: params });
+    return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts', { params });
   }
 
   getHelptekstById(id: number): Observable<Helptekst> {
@@ -43,7 +43,7 @@ export class HelptekstService {
   getHelptekstByHelpId(helpid: string): Observable<Helptekst[]> {
     this.messageService.add('HelptekstService: getHelptekstById: ' + helpid);
     const params = new HttpParams().set('helpid', helpid);
-    return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts/', { params: params });
+    return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts/', { params });
   }
 
   // Authorized services
@@ -55,7 +55,7 @@ export class HelptekstService {
       .set('Authorization', 'Bearer ' + this.jwtToken);
 
     const httpOptions = {
-      'headers': httpHeaders
+      headers: httpHeaders
     };
     this.messageService.add('HelptekstService - addHelptekst httpOptions: ' + JSON.stringify(httpOptions));
     return this.http.post<Helptekst>(this.baseUrl + '/helpteksts', helptekst, httpOptions);
@@ -69,7 +69,7 @@ export class HelptekstService {
       .set('Authorization', 'Bearer ' + this.jwtToken);
 
     const httpOptions = {
-      'headers': httpHeaders
+      headers: httpHeaders
     };
     this.messageService.add('HelptekstService - updateHelptekst httpOptions: ' + JSON.stringify(httpOptions));
     return this.http.put<Helptekst>(this.baseUrl + '/helpteksts/' + helptekst.id, helptekst, httpOptions);
@@ -82,7 +82,7 @@ export class HelptekstService {
       .set('Authorization', 'Bearer ' + this.jwtToken);
 
     const httpOptions = {
-      'headers': httpHeaders
+      headers: httpHeaders
     };
     this.messageService.add('HelptekstService - deleteHelptekst httpOptions: ' + JSON.stringify(httpOptions));
     return this.http.delete<Helptekst>(this.baseUrl + '/helpteksts/' + helptekst.id, httpOptions);
@@ -92,7 +92,7 @@ export class HelptekstService {
   login() {
     const user = new User('testauthor', 'testauthor');
 
-    let httpHeaders = new HttpHeaders()
+    const httpHeaders = new HttpHeaders()
       .set('Accept', 'application/json, text/plain, */*')
       .set('Accept-Encoding', 'gzip, deflate, br')
       .set('Content-Type', 'application/json; charset=utf-8')
@@ -102,7 +102,7 @@ export class HelptekstService {
       .set('Sec-Fetch-Site', 'same-site');
 
     const httpOptions = {
-      'headers': httpHeaders,
+      headers: httpHeaders,
     };
     this.messageService.add('HelptekstService - login start');
 

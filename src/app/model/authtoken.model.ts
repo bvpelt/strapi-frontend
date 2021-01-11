@@ -1,4 +1,4 @@
-import { StravaUser } from "./stravauser.model";
+import { StravaUser } from './stravauser.model';
 
 export class AuthToken {
     jwt: string;
