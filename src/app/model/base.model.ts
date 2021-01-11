@@ -1,4 +1,4 @@
-import { DatePipe } from "@angular/common"
+import { DatePipe } from '@angular/common';
 
 export class Base {
     id: number;

@@ -1,19 +1,22 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Helptekst } from '../model/helptekst.model';
+import { User } from '../model/user.model';
 import { Observable } from 'rxjs';
 import { find, repeatWhen, mapTo, startWith, filter } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 import { environment } from './../../environments/environment';
+import { AuthToken } from '../model/authtoken.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelptekstService {
 
-  jwtToken: string = "";
-  baseUrl: string = 'http://localhost:1337';
+  jwtToken = '';
+  baseUrl = 'http://localhost:1337';
 
   constructor(private http: HttpClient, private messageService: MessageService) {
     this.baseUrl = environment.apiUrl;
@@ -23,7 +26,7 @@ export class HelptekstService {
 
   // Public available services
   getHelpteksts(start: number, limit: number): Observable<Helptekst[]> {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('_sort', 'helpid:ASC')
       .set('_start', start.toString())
       .set('_limit', limit.toString());
@@ -39,7 +42,7 @@ export class HelptekstService {
 
   getHelptekstByHelpId(helpid: string): Observable<Helptekst[]> {
     this.messageService.add('HelptekstService: getHelptekstById: ' + helpid);
-    let params = new HttpParams().set('helpid', helpid);
+    const params = new HttpParams().set('helpid', helpid);
     return this.http.get<Helptekst[]>(this.baseUrl + '/helpteksts/', { params: params });
   }
 
@@ -47,7 +50,7 @@ export class HelptekstService {
   addHelptekst(helptekst: Helptekst): Observable<Helptekst> {
     this.messageService.add('helptekstService: addHelpteksts');
 
-    let httpHeaders = new HttpHeaders()
+    const httpHeaders = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.jwtToken);
 
@@ -61,7 +64,7 @@ export class HelptekstService {
   updateHelptekst(helptekst: Helptekst): Observable<Helptekst> {
     this.messageService.add('helptekstService: updateHelptekst');
 
-    let httpHeaders = new HttpHeaders()
+    const httpHeaders = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.jwtToken);
 
@@ -75,7 +78,7 @@ export class HelptekstService {
   deleteHelptekst(helptekst: Helptekst): Observable<Helptekst> {
     this.messageService.add('helptekstService: deleteHelptekst');
 
-    let httpHeaders = new HttpHeaders()
+    const httpHeaders = new HttpHeaders()
       .set('Authorization', 'Bearer ' + this.jwtToken);
 
     const httpOptions = {
@@ -87,10 +90,7 @@ export class HelptekstService {
 
   // Provide authentication token
   login() {
-    const user = {
-      'identifier': 'testauthor',
-      'password': 'testauthor'
-    };
+    const user = new User('testauthor', 'testauthor');
 
     let httpHeaders = new HttpHeaders()
       .set('Accept', 'application/json, text/plain, */*')
@@ -99,18 +99,18 @@ export class HelptekstService {
       .set('Connection', 'keep-alive')
       .set('Sec-Fetch-Dest', 'empty')
       .set('Sec-Fetch-Mode', 'cors')
-      .set('Sec-Fetch-Site', 'same-site')
+      .set('Sec-Fetch-Site', 'same-site');
 
     const httpOptions = {
       'headers': httpHeaders,
     };
     this.messageService.add('HelptekstService - login start');
 
-    this.http.post<any>(this.baseUrl + '/auth/local', user)
+    this.http.post<AuthToken>(this.baseUrl + '/auth/local', user)
       .subscribe(
         (response => {
           this.messageService.add('HelptekstService - login reponse: ' + JSON.stringify(response));
-          this.jwtToken = response.jwt
+          this.jwtToken = response.jwt;
         }),
         (error => { this.messageService.add('HelptekstService - login error reponse: ' + JSON.stringify(error)); }),
         () => { })

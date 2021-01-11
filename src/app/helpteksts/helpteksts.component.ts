@@ -15,18 +15,18 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 export class HelptekstsComponent implements OnInit {
   helpteksts$: Observable<Helptekst[]> = of([]);
   helpteksts: Helptekst[] = [];
-  error: string = "";
+  error = '';
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
 
   // paging parameters
-  start: number = 0;
-  limit: number = 5;
-  newPos: number = 0;
-  curMax: number = 0;
-  showNext: boolean = false;
-  showPrev: boolean = false;
-  lastAction: number = 0; // 0 = next, 1 =prev
+  start = 0;
+  limit = 5;
+  newPos = 0;
+  curMax = 0;
+  showNext = false;
+  showPrev = false;
+  lastAction = 0; // 0 = next, 1 =prev
 
   constructor(private messageService: MessageService,
     private helptekstService: HelptekstService,
@@ -44,16 +44,16 @@ export class HelptekstsComponent implements OnInit {
         (result => {
           this.messageService.add('HelptekstsComponent getHelpteksts result: ' + JSON.stringify(result));
           this.helpteksts = result;
-          if (result.length == this.limit) {
+          if (result.length === this.limit) {
             this.showNext = true;      // there can be more elements
           } else {
             this.showNext = false;     // there are defenitly no more elements
           }
-          this.newPos = result.length; // set the new position       
+          this.newPos = result.length; // set the new position
           this.curMax = this.newPos;   // set new maximum length
           this.lastAction = 0;
         }),
-        (error => { this.error = error })
+        (error => { this.error = error; })
       );
   }
 
@@ -67,9 +67,9 @@ export class HelptekstsComponent implements OnInit {
             this.curMax = this.curMax - 1;
           }
         }),
-        (error => { this.error = error }),
+        (error => { this.error = error; }),
         (() => {
-          // Content changed 
+          // Content changed
           this.messageService.add('HelptekstsComponent delete - before correction start: ' + this.start + ' curMax: ' + this.curMax);
           if (this.start > this.curMax) {
             this.start = this.start - 1;
@@ -83,7 +83,7 @@ export class HelptekstsComponent implements OnInit {
 
 
   clearError(): void {
-    this.error = "";
+    this.error = '';
   }
 
   goBack(): void {
@@ -99,7 +99,7 @@ export class HelptekstsComponent implements OnInit {
       .subscribe(
         (result => {
           this.helpteksts = result;
-          if (result.length == this.limit) {
+          if (result.length === this.limit) {
             this.showNext = true;      // there can be more elements
           } else {
             this.showNext = false;     // there are defenitly no more elements
@@ -123,7 +123,7 @@ export class HelptekstsComponent implements OnInit {
 
   prev(): void {
     this.messageService.add('HelptekstsComponent prev entry newPos: ' + this.newPos + ' start: ' + this.start + ' curMax: ' + this.curMax);
-    if (this.lastAction == 0) {
+    if (this.lastAction === 0) {
       if (this.newPos > this.limit) {
         this.start = this.newPos - this.limit;
       } else {
@@ -142,7 +142,7 @@ export class HelptekstsComponent implements OnInit {
       .subscribe(
         (result => {
           this.helpteksts = result;
-          if (result.length == this.limit) {
+          if (result.length === this.limit) {
             this.showNext = true;      // there can be more elements
           } else {
             this.showNext = false;     // there are defenitly no more elements

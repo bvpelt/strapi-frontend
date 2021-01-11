@@ -8,14 +8,13 @@ export class MessageService {
   messages: string[] = [];
 
   add(message: string) {
-    let now: Date = new Date();
-    let nowString: string = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '.' + now.getMilliseconds();
-    console.log('MessageService add: ' + message);
+    const now: Date = new Date();
+    const nowString: string = now.getFullYear() + '-' + now.getMonth() + '-' +
+      now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '.' + now.getMilliseconds();
     this.messages.push(nowString + ' - ' + message);
   }
 
   clear() {
-    console.log('MessageService clear');
     this.messages = [];
   }
 }

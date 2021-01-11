@@ -17,10 +17,10 @@ import { ToolbarService, LinkService, ImageService, HtmlEditorService } from '@s
 })
 export class HelptekstComponent implements OnInit {
 
-  helptekst: Helptekst = new Helptekst("", "");
-  helpmsg: string = "";
-  error: string = "";
-  addButton: boolean = true;
+  helptekst: Helptekst = new Helptekst('', '');
+  helpmsg = '';
+  error = '';
+  addButton = true;
   faQuestionCircle = faQuestionCircle;
 
   tools: object = {
@@ -51,18 +51,19 @@ export class HelptekstComponent implements OnInit {
   addHelptekst(): void {
     // check if helptekst is valid
     if (this.validHelptekst()) {
-      this.messageService.add('HelptekstComponent - added valid helptekst: ' + this.helptekst.helpid + ' ' + JSON.stringify(this.helptekst));
+      this.messageService.add('HelptekstComponent - added valid helptekst: ' +
+        this.helptekst.helpid + ' ' + JSON.stringify(this.helptekst));
       this.helptekstService.addHelptekst(this.helptekst)
         .subscribe(
-          (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)) }),
+          (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)); }),
           (error => {
             this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
             this.error = error.statusText;
           }),
-          (() => { this.helptekst = new Helptekst("", ""); })
+          (() => { this.helptekst = new Helptekst('', ''); })
         );
     } else {
-      this.error = "Both helpid and helpmessage are required"
+      this.error = 'Both helpid and helpmessage are required';
       this.messageService.add(this.error);
     }
   }
@@ -71,7 +72,7 @@ export class HelptekstComponent implements OnInit {
     this.messageService.add('HelptekstComponent - update helptekst:' + JSON.stringify(this.helptekst));
     this.helptekstService.updateHelptekst(this.helptekst)
       .subscribe(
-        (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)) }),
+        (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)); }),
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
@@ -83,7 +84,7 @@ export class HelptekstComponent implements OnInit {
     this.messageService.add('HelptekstComponent - delete helptekst:' + JSON.stringify(this.helptekst));
     this.helptekstService.deleteHelptekst(this.helptekst)
       .subscribe(
-        (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)) }),
+        (response => { this.messageService.add('HelptekstComponent - Result: ' + JSON.stringify(response)); }),
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
@@ -110,9 +111,9 @@ export class HelptekstComponent implements OnInit {
   }
 
   validHelptekst(): boolean {
-    var result: boolean = false;
+    let result = false;
 
-    if (typeof (this.helptekst.helpid) != "undefined") {
+    if (typeof (this.helptekst.helpid) != 'undefined') {
       if (this.helptekst.helpid.length > 0) {
         result = true;
       } else {
@@ -120,8 +121,8 @@ export class HelptekstComponent implements OnInit {
       }
     }
 
-    if (result == true) {
-      if (typeof (this.helptekst.helptekst) != "undefined") {
+    if (result === true) {
+      if (typeof (this.helptekst.helptekst) != 'undefined') {
         if (this.helptekst.helptekst.length === 0) {
           result = false;
         }
@@ -134,7 +135,7 @@ export class HelptekstComponent implements OnInit {
   }
 
   clearError(): void {
-    this.error = "";
+    this.error = '';
   }
 
   goBack(): void {
@@ -145,25 +146,25 @@ export class HelptekstComponent implements OnInit {
     this.messageService.add('HelptekstComponent - showHelp for id: ' + helpid);
     this.helptekstService.getHelptekstById(helpid)
       .subscribe(
-        (response => { this.helpmsg = response.helptekst }),
+        (response => { this.helpmsg = response.helptekst; }),
         (error => {
           this.messageService.add('HelptekstComponent - Error ' + JSON.stringify(error));
           this.error = error.statusText;
         }),
         (() => { })
-      )
+      );
   }
 
   showHelpByHelpId(helpid: string): void {
     this.clearError();
-    var helpresponse: Helptekst[];
+    let helpresponse: Helptekst[];
     this.messageService.add('HelptekstComponent - showHelpByHelpId for helpid: ' + helpid);
     this.helptekstService.getHelptekstByHelpId(helpid)
       .subscribe(
         (response => {
           this.messageService.add('HelptekstComponent - Result ' + JSON.stringify(response));
           helpresponse = response;
-          if (helpresponse.length == 1) { // only one answer expected since helpid is unique identifier!!!
+          if (helpresponse.length === 1) { // only one answer expected since helpid is unique identifier!!!
             this.helpmsg = helpresponse[0].helptekst;
           }
         }),
@@ -172,11 +173,11 @@ export class HelptekstComponent implements OnInit {
           this.error = error.statusText;
         }),
         (() => { })
-      )
+      );
   }
 
   removeHelpMsg(): void {
     this.messageService.add('HelptekstComponent - removeHelpMsg');
-    this.helpmsg = "";
+    this.helpmsg = '';
   }
 }
