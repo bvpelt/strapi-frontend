@@ -4,48 +4,54 @@
     <form>
         <div class="form-group">
             <label for="helpid">helpid</label>
+
+            <button #bhelp1 type="button" class="btn btn-primary" (click)="showHelpByHelpId('001')">
+                <fa-icon [icon]="faQuestionCircle"></fa-icon>
+            </button>
+
             <input class="form-control" type="text" id="helpid" aria-describedby="helpidHelp"
                 placeholder="Enter unique helpid" name="helpid" (keypress)="clearError()" [(ngModel)]="helptekst.helpid"
                 class="form-control-lg">
 
-            <button type="button" class="btn btn-primary" (click)="showHelp(1)">
-                <fa-icon [icon]="faQuestionCircle"></fa-icon>
-            </button>
-
             <small id="helpidHelp" class="form-text text-muted">Make sure the helpid is unique</small>
         </div>
 
+
         <div class="form-group">
             <label for="helptekst">helptekst</label>
-            <input class="form-control" type="text" id="helptekst" aria-describedby="helptextHelp"
-                placeholder="Enter the helptekst" name="helptekst" (keypress)="clearError()"
-                [(ngModel)]="helptekst.helptekst" class="form-control-lg">
 
-            <button type="button" class="btn btn-primary" (click)="showHelp(2)">
+            <button #bhelp2 type="button" class="btn btn-primary" (click)="showHelpByHelpId('002')">
                 <fa-icon [icon]="faQuestionCircle"></fa-icon>
             </button>
+
+            <ejs-richtexteditor class="form-control" id='helptekst' aria-describedby="helptextHelp"
+                [toolbarSettings]="tools" name="helptekst" (keypress)="clearError()" [(value)]=" helptekst.helptekst"
+                [(ngModel)]="helptekst.helptekst">
+            </ejs-richtexteditor>
+
             <small id="helptextHelp" class="form-text text-muted">The helptext</small>
         </div>
 
-
-
-        <button *ngIf="addButton == true" type="submit" class="btn btn-primary" (click)="addHelptekst()">Add</button>
-        <button *ngIf="addButton == false" type="submit" class="btn btn-primary"
+        <button *ngIf="addButton == true" type="submit" class="btn btn-primary navbut"
+            (click)="addHelptekst()">Add</button>
+        <button *ngIf="addButton == false" type="submit" class="btn btn-primary navbut"
             (click)="updateHelptekst()">Update</button>
-        <button *ngIf="addButton == false" type="submit" class="btn btn-primary"
+        <button *ngIf="addButton == false" type="submit" class="btn btn-primary navbut"
             (click)="deleteHelptekst()">Delete</button>
-        <button type="submit" class="btn btn-primary" (click)="goBack()">Go back</button>
+        <button type="submit" class="btn btn-primary navbut" (click)="goBack()">Go back</button>
     </form>
+
     <div class="error" *ngIf="error">
         {{error}}
     </div>
+
 
     <div *ngIf="helpmsg" class="alert alert-primary" role="alert">
         <button type="button" class="close" (click)="removeHelpMsg()">
             <span aria-hidden="true">&times;</span>
         </button>
-        <div>
-            {{helpmsg}}
+        <div [innerHTML]="helpmsg">
+
         </div>
     </div>
 </div>

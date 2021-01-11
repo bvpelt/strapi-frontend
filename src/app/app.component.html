@@ -16,6 +16,19 @@
         </li>
       </ul>
     </nav>
+
+    <button type="button" class="btn btn-primary helpbutton" (click)="showHelpByHelpId('003')">
+      <fa-icon [icon]="faQuestionCircle"></fa-icon>
+    </button>
+
+  </div>
+
+  <div *ngIf="helpmsg" class="helpmsg">
+    <button type="button" class="close" aria-label="Close" (click)="clearHelp()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div [innerHTML]="helpmsg">
+    </div>
   </div>
 
   <div class="container-fluid">
